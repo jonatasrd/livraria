@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="130">
+			<!-- cabeçalho -->
+			<div id="cabecalho">
+				<h:outputLink value="index.xhtml">
+					<h:graphicImage id="logo" library="img" name="java.png"
+						title="Home" style="border:none;" height="110"/>
+				</h:outputLink>
+			</div>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="240" header="Menu" resizable="true" closable="false" collapsible="true">
+			<!-- menu -->
+			<h:form>
+				<p:panelMenu style="font-size:11px;">
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Livro" url="livro.xhtml" icon="ui-icon-disk" />
+						<p:menuitem value="Autor" url="autor.xhtml" icon="ui-icon-disk" />
+					</p:submenu>
+					<p:submenu label="Consultas">
+						<p:menuitem value="Livros cadastrados" url="consultarlivros.xhtml"
+							icon="ui-icon-folder-open" />
+					</p:submenu>
+					<p:submenu label="Manutenção">
+						<p:menuitem value="Alterar dados do livro"
+							url="alterarDadosLivro.xhtml" icon="ui-icon-wrench" />
+					</p:submenu>
+				</p:panelMenu>
+			</h:form>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<!-- conteudo -->
+			<h1>
+				<ui:insert name="titulo"></ui:insert>
+			</h1>
+			<div id="conteudo">
+				<ui:insert name="conteudo"></ui:insert>
+			</div>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50">
+			<!-- rodapé -->
+			<h:outputText value="Exemplo de rodapé!." align="center" />
+		</p:layoutUnit>
+	</p:layout>
+
+</h:body>
+
+</html>

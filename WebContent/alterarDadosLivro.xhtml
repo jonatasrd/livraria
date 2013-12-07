@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+				Alterar dados do livro
+		</ui:define>
+
+	<ui:define name="conteudo">
+		<p:growl autoUpdate="true" />
+		<h:form>
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Título:" />
+				<p:inputText id="titulo" value="#{pesquisarLivroBean.livro.titulo}"
+					size="40" required="true"
+					requiredMessage="Informe o título para pesquisar"
+					validatorMessage="Informe no mínimo 3 caracteres">
+					<p:watermark for="titulo" value="Digite o livro para pesquisar" />
+					<f:validateLength minimum="3" />
+				</p:inputText>
+
+				<p:commandButton value="pesquisar"
+					action="#{pesquisarLivroBean.pesquisar}" update="outLivros" />
+			</h:panelGrid>
+
+			<br />
+			<p:outputPanel id="outLivros">
+				<p:dataTable rendered="#{pesquisarLivroBean.renderiza}"
+					value="#{pesquisarLivroBean.livros}" var="livro"
+					emptyMessage="Nenhum livro encontrado" rows="8" id="tabelaLivros"
+					style="width:80%;">
+					<p:column>
+						<f:facet name="header">Título</f:facet>
+						<h:outputText value="#{livro.titulo}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">ISBN</f:facet>
+						<h:outputText value="#{livro.isbn}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Ações</f:facet>
+						<p:commandLink action="#{pesquisarLivroBean.navegar()}"
+							title="Alterar">
+							<h:graphicImage value="resources/img/abrir.png" height="30"
+								style="border:none;" />
+							<f:setPropertyActionListener target="#{alteraLivroBean.livro}"
+								value="#{livro}" />
+
+						</p:commandLink>
+
+						<p:spacer width="10px"></p:spacer>
+
+						<p:commandLink onclick="apagar.show()" title="Excluir">
+							<h:graphicImage value="resources/img/apagar.png" height="30"
+								style="border:none;" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:confirmDialog
+				message="Voce tem certeza que deseja excluir o livro?"
+				header="Excluindo o livro" severity="alert" widgetVar="apagar"
+				appendToBody="true">
+				<p:commandButton value="Sim, tenho!" update="tabelaLivros"
+					actionListener="#{pesquisarLivroBean.apagarLivro(livro)}"
+					oncomplete="apagar.hide()" process="@this" />
+				<p:commandButton value="Ainda não" onclick="apagar.hide();"
+					type="button" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>
